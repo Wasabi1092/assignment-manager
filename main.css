@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+html{
+    background-color: #343434;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 95%;
+    height: 100%
+}
+
+#header{
+    width: inherit;
+    height: auto;
+    font-family: "Poppins", sans-serif;
+    white-space: nowrap;
+}
+
+#header button, h1, a{
+    display: inline-block;
+    vertical-align: middle;
+}
+#header h1{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#header button{
+    background: #0461db;
+    margin-left: 3%;
+    border: none;
+    border-radius: 10px;
+    transition-duration: 300ms;
+    width: 20%;
+    height: 50px;
+    color: white;
+    font-size: 20px;
+}
+#header button:active{
+    background: #6aaaff;
+    transition-duration: 100ms;
+}
+#header a{
+    margin-left: 5%;
+}
+table{
+    border: 1px solid white;
+    background-color: white;
+    width: inherit;
+    align-self: center;
+    margin: auto;
+}
+thead{
+    border: 1px solid white;
+    background-color:#343434;
+}
+tbody{
+    border: 1px solid white;
+    background-color:#343434;
+}
+tr{
+    border: 1px solid white;
+    background-color:#343434;
+}
+td{
+    text-align: center;
+    border: 1px solid white;
+    background-color:#343434;
+}
+input[type=text]{
+    border: none;
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    background: none;
+    border-bottom: 2px solid #ffffff;
+    width: 90%;
+}
+input[type=date]{
+    border: none;
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    background: none;
+    border-bottom: 2px solid #ffffff;
+    width: 90%;
+    text-align: center;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator{
+    filter: invert(1)
+}
+a{
+    color: #ffffff;
+    font-style: none;
+    text-decoration: none;
+    transition-duration: 300ms;
+}
+a:hover{
+    color: #3b4ddb;
+    transition-duration: 300ms;
+}
+
+#close{
+    font-size: 30px;
+}
+#notes{
+    height: 500px;
+    max-height: 500px;
+    width: 100%;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    resize: none;
+}
+textarea{
+    background: #343434;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+}

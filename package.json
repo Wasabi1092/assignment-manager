@@ -1,0 +1,17 @@
+{
+  "name": "assignment-manager",
+  "version": "1.0.0",
+  "description": "A place to put your assignments and tasks",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "xavier",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^21.2.0"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
+}

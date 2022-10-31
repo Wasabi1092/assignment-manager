@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Assignment Manager</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>        
+        <div id="header">
+            <h1>Assignment Manager</h1>
+            <button onclick="addTask()">Add New Task</button>
+            <button onclick="removeTasks()">Remove Done Tasks</button>
+            <button>Toggle View</button>
+            <a href="settings.html"><img src="images/settings.png" alt="settings" width = "50px" height = "50px"></a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <!--7 Columns-->
+                    <td>View</td>
+                    <td>Name</td>
+                    <td>Category/Subject</td>
+                    <td>Date Start</td>
+                    <td>Date End</td>
+                    <td>Notes</td>
+                    <td>Mark as Done</td>
+                </tr>
+            </thead>
+            <tbody id = "assignments" onchange="updateTasks()">
+                <tr>
+                    <td class="view"><input type="checkbox" id="view1" value=False></td>
+                    <td class="name"><input type="text" id="name1" value=""></td>
+                    <td class="subject"><input type="text" id="subject1" value=""></td>
+                    <td class="startdate"><input type="date" id="startdate1" value=""></td>
+                    <td class="enddate"><input type="date" id="enddate1" value=""></td>
+                    <td class="notes"><a href="notes.html">Notes</a></td>
+                    <td class="done"><input type="checkbox" id="done1" value=False></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>  
+    <script text = "text/javascript" src="renderer.js"></script>
+</html>

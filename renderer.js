@@ -144,7 +144,7 @@ function removeTasks(){
         for (i=0; i<data.length; i++){
             var done = document.getElementById(`done${i+1}`).checked
             if (done){
-                tasks.push(JSON.stringify(data[i])) 
+                tasks.push(data[i])
                 fs.unlink(`resources/notes${i+1}.txt`, function(err){
                     if (err){
                         alert(err)
@@ -153,16 +153,13 @@ function removeTasks(){
             }
         }
         for (i=0; i<tasks.length; i++){
-            data.splice(data.indexOf(tasks[i]), 1)
+            index = data.indexOf(tasks[i], 1)
+            data.splice(index, 1)
         }
-        alert("step 2")
         //renaming is not working, need to figure out a new plan
         for (i=0; i<data.length; i++){
             var currNotes = data[i].notes
             data[i].notes = `./resources/notes${i+1}.txt`
-            alert(currNotes)
-            alert(i)
-            alert(data[i].notes)
             fs.rename(currNotes, `./resources/notes${i+1}.txt`, (err) =>{
                 if (err){
                     alert(err)
@@ -179,7 +176,66 @@ function removeTasks(){
         renderTasks()
     })
 }
+function loadSettings(){
+    html = ""
+    fetchFile("./resources/settings.json")
+    .then( settings => {
+        settingsHTML = document.getElementById("settings")
+        for (i=0; i<settings.length; i++){
+            html = html + `<tr><td class="subject"><input type="text" id="subject${i+1}" value ="${settings[i].subject}"></td><td class="colour"><input type="color" id="colour${i+1}" value="${settings[i].colour}"></td><td class="remove"><button id="button${i+1}" onclick="deleteMe(${i+1})">X</button></td></tr>`
+        }
+        settingsHTML.innerHTML = html
+    })
+}
+function updateSettings(){
+    var settingsJSON = []
+    var settingsObject
+    fetchFile("./resources/settings.json")
+    .then(settings => {
+        for (i=0; i<settings.length; i++){
+            settingsObject = {
+                "subject": document.getElementById(`subject${i+1}`).value,
+                "colour": document.getElementById(`colour${i+1}`).value
+            }
+            settingsJSON.push(settingsObject)
+        }
+        return (settingsJSON)
+    })
+    .then(json => {
+        try{
+            fs.writeFileSync("./resources/settings.json", JSON.stringify(json))
+        }
+        catch (err){
+            alert(err)
+        }
+    })
+}
 
-// do notes functionality today
+function addSubject(){
+    updateSettings()
+    fetchFile("./resources/settings.json")
+    .then(settings => {
+        var newSubject = {
+            "subject": "New Subject",
+            "colour": "#ffffff"
+        }
+        settings.push(newSubject)
+        try{
+            fs.writeFileSync("./resources/settings.json", JSON.stringify(settings))
+        }
+        catch (err){
+            alert(err)
+        }
+        loadSettings()
+    })
+}
+function deleteMe(e){
+    fetchFile("./resources/settings.json")
+    .then(settings => {
+        settings.splice(e-1, 1)
+    })
+    loadSettings()
+}
 func()
 renderTasks()
+loadSettings()

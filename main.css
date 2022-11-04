@@ -118,3 +118,70 @@ textarea{
     color: #ffffff;
     font-family: "Poppins", sans-serif;
 }
+
+#timeline{
+    height: 100%;
+    width: 100%;
+}
+#dates{
+    top: 90%;
+    height: 10%;
+    width: 95%;
+    position: absolute;
+    align-self: baseline;
+    align-items: center;
+    left: 3%;
+}
+.line{
+    width: 99%;
+    border: 2px solid #ffffff;
+    position: absolute;
+    transform: translateY(10px);
+    left: -0.25%;
+}
+.dot{
+    border-radius: 100px;
+    width: 15px;
+    height: 15px;
+    background: #ffffff;
+    border: 5px solid #343434;
+    color: #000000;
+    position: relative;
+    display: inline-block;
+    margin-left: 6%;
+    margin-right: 6%
+}
+  
+.dot .tooltiptext {
+    width: 75px;
+    font-size: 12px;
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -38px;
+    transform: translateY(60px);
+    transition-duration: 300ms;
+    opacity: 0;
+}
+
+.dot .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;  /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #ffffff transparent;
+}
+
+.dot:hover .tooltiptext {
+    transition-duration: 300ms;
+    opacity: 1;
+}

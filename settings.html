@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Assignment Manager</title>
-        <link rel="stylesheet" href="main.css">
-    </head>
-    <body>        
-        <div id="header">
-            <h1>Settings</h1>
-            <button onclick="addSubject()">Add Subject</button>
-            <a href="index.html"><img src="./images/x.png" alt="x" width="50px" float="right"></a>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <!--7 Columns-->
-                    <td>Subject</td>
-                    <td>Colour</td>
-                    <td>Remove Subject</td>
-                </tr>
-            </thead>
-            <tbody id = "settings" onchange="updateSettings()">
-                <tr>
-                    <td class="subject"><input type="text" id="subject1" value =""></td>
-                    <td class="colour"><input type="color" id="colour1" value="#ffffff"></td>
-                    <td class="remove"><button id="button1">X</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </body>  
-    <script text = "text/javascript" src="renderer.js"></script>
-</html>
+        <html>
+            <head>
+                <title>Assignment Manager</title>
+                <link rel="stylesheet" href="main.css">
+            </head>
+            <body>        
+                <div id="header">
+                    <h1>Settings</h1>
+                    <button onclick="addSubject()">Add Subject</button>
+                    <a href="index.html"><img src="./images/x.png" alt="x" width="50px" float="right"></a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <!--7 Columns-->
+                            <td>Subject</td>
+                            <td>Colour</td>
+                            <td>Remove Subject</td>
+                        </tr>
+                    </thead>
+                    <tbody id = "settings" onchange="updateSettings()">
+                        <tr>
+                            <td class="subject"><input type="text" id="subject1" value =""></td>
+                            <td class="colour"><input type="color" id="colour1" value="#ffffff"></td>
+                            <td class="remove"><button id="button1">X</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </body>  
+            <script text = "text/javascript" src="renderer.js"></script>
+        </html>

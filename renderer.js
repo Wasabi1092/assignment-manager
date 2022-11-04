@@ -1,3 +1,5 @@
+const { features } = require("process")
+
 const assignments = document.getElementById("assignments")
 var fs
 try {
@@ -9,7 +11,6 @@ catch (err){
 }
 var today = new Date()
 today = (today.getFullYear()).toString() + "-" + (today.getMonth() + 1).toString() + "-" + (today.getDate()).toString()
-
 
 async function fetchFile(filepath) {
     let obj;
@@ -24,7 +25,6 @@ function addTask() {
     updateTasks()
     fetchFile("resources/tasks.json")
     .then(data => {
-        // put functions to run here
         var newTask = {"name": "Untitled Task",
                         "view": "unchecked",
                         "subject": "Unnamed",
@@ -63,7 +63,7 @@ function renderTasks(){
                     html = html + `<tr><td class="view"><input type="checkbox" id="view${i+1}" checked></td><td class="name"><input type="text" id="name${i+1}" value="${data[i].name}"></td><td class="subject"><input type="text" id="subject${i+1}" value="${data[i].subject}"></td><td class="startdate"><input type="date" id="startdate${i+1}" value="${data[i].startdate}"></td><td class="enddate"><input type="date" id="enddate${i+1}" value="${data[i].enddate}"></td><td class="notes"><a href="notes.html" value = "notes${i+1}"onclick="loadNotes(${i})">Notes</a></td><td class="done"><input type="checkbox" id="done${i+1}" checked></td></tr>` 
                 }
                 else{
-                    html = html + `<tr><td class="view"><input type="checkbox" id="view${i+1}" checked></td><td class="name"><input type="text" id="name${i+1}" value="${data[i].name}"></td><td class="subject"><input type="text" id="subject${i+1}" value="${data[i].subject}"></td><td class="startdate"><input type="date" id="startdate${i+1}" value="${data[i].startdate}"></td><td class="enddate"><input type="date" id="enddate${i+1}" value="${data[i].enddate}"></td><td class="notes"><a href=notes}.html" value = "notes${i+1}"onclick="loadNotes(${i})">Notes</a></td><td class="done"><input type="checkbox" id="done${i+1}" ></td></tr>` 
+                    html = html + `<tr><td class="view"><input type="checkbox" id="view${i+1}" checked></td><td class="name"><input type="text" id="name${i+1}" value="${data[i].name}"></td><td class="subject"><input type="text" id="subject${i+1}" value="${data[i].subject}"></td><td class="startdate"><input type="date" id="startdate${i+1}" value="${data[i].startdate}"></td><td class="enddate"><input type="date" id="enddate${i+1}" value="${data[i].enddate}"></td><td class="notes"><a href=notes.html" value = "notes${i+1}"onclick="loadNotes(${i})">Notes</a></td><td class="done"><input type="checkbox" id="done${i+1}" ></td></tr>` 
                 }
             }
             else{
@@ -113,6 +113,7 @@ function updateTasks(){
         }
     })
 }
+
 function loadNotes(e){
     fetchFile("resources/tasks.json")
     .then(data => {
@@ -127,6 +128,7 @@ function loadNotes(e){
     })
         
 }
+
 function saveText(e){
     var text = document.getElementById("notes").value
     try{
@@ -136,6 +138,7 @@ function saveText(e){
         alert(err)
     }
 }
+
 function removeTasks(){
     var tasks = []
     fetchFile("resources/tasks.json")
@@ -176,6 +179,7 @@ function removeTasks(){
         renderTasks()
     })
 }
+
 function loadSettings(){
     html = ""
     fetchFile("./resources/settings.json")
@@ -187,6 +191,7 @@ function loadSettings(){
         settingsHTML.innerHTML = html
     })
 }
+
 function updateSettings(){
     var settingsJSON = []
     var settingsObject
@@ -229,13 +234,109 @@ function addSubject(){
         loadSettings()
     })
 }
+
 function deleteMe(e){
+    updateSettings()
     fetchFile("./resources/settings.json")
     .then(settings => {
         settings.splice(e-1, 1)
+        try{
+            fs.writeFileSync("./resources/settings.json", JSON.stringify(settings))
+        }
+        catch (err){
+            alert(err)
+        }
     })
     loadSettings()
+    window.location.reload()
 }
+
+function toggle(e){
+    var html
+    if (e==1){
+        html = `<!DOCTYPE html>
+        <html>
+            <head>
+                <title>Assignment Manager</title>
+                <link rel="stylesheet" href="main.css">
+            </head>
+            <body>        
+                <div id="header">
+                    <h1>Settings</h1>
+                    <button onclick="addSubject()">Add Subject</button>
+                    <a href="index.html"><img src="./images/x.png" alt="x" width="50px" float="right"></a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <!--7 Columns-->
+                            <td>Subject</td>
+                            <td>Colour</td>
+                            <td>Remove Subject</td>
+                        </tr>
+                    </thead>
+                    <tbody id = "settings" onchange="updateSettings()">
+                        <tr>
+                            <td class="subject"><input type="text" id="subject1" value =""></td>
+                            <td class="colour"><input type="color" id="colour1" value="#ffffff"></td>
+                            <td class="remove"><button id="button1">X</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </body>  
+            <script text = "text/javascript" src="renderer.js"></script>
+        </html>`
+        try{
+            fs.writeFileSync("settings.html", html)
+        }
+        catch (err){
+            alert(err)
+        }
+
+    }
+    else{
+        html = `<!DOCTYPE html>
+        <html>
+            <head>
+                <title>Assignment Manager</title>
+                <link rel="stylesheet" href="main.css">
+            </head>
+            <body>        
+                <div id="header">
+                    <h1>Settings</h1>
+                    <button onclick="addSubject()">Add Subject</button>
+                    <a href="timeline.html"><img src="./images/x.png" alt="x" width="50px" float="right"></a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <!--7 Columns-->
+                            <td>Subject</td>
+                            <td>Colour</td>
+                            <td>Remove Subject</td>
+                        </tr>
+                    </thead>
+                    <tbody id = "settings" onchange="updateSettings()">
+                        <tr>
+                            <td class="subject"><input type="text" id="subject1" value =""></td>
+                            <td class="colour"><input type="color" id="colour1" value="#ffffff"></td>
+                            <td class="remove"><button id="button1">X</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </body>  
+            <script text = "text/javascript" src="renderer.js"></script>
+        </html>`
+        try{
+            fs.writeFileSync("settings.html", html)
+        }
+        catch(err){
+            alert(err)
+        }
+    }
+}
+
+
 func()
 renderTasks()
 loadSettings()

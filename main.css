@@ -121,7 +121,30 @@ textarea{
 
 #timeline{
     height: 100%;
-    width: 100%;
+    width: 90%;
+}
+
+#tasks{
+    height: 75%;
+    width: 95%;
+    position: absolute;
+    left: 2.75%;
+    transform:rotate(180deg) scaleX(-1);
+}
+.task{
+    width: 99%;
+    border: 2px solid #000000;
+    position: relative;
+    bottom: 5px;
+    margin-top: 5%;
+}
+#task1{
+    border-color: #0461db;
+}
+#task2{
+    border-color: #ff0000;
+    width: 99%;
+    left: 0%
 }
 #dates{
     top: 90%;

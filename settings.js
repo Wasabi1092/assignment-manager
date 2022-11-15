@@ -1,3 +1,38 @@
+function addSubject(){
+    updateSettings()
+    fetchFile("./resources/settings.json")
+    .then(settings => {
+        var newSubject = {
+            "subject": "New Subject",
+            "colour": "#ffffff"
+        }
+        settings.push(newSubject)
+        try{
+            fs.writeFileSync("./resources/settings.json", JSON.stringify(settings))
+        }
+        catch (err){
+            alert(err)
+        }
+        loadSettings()
+    })
+}
+
+function deleteMe(e){
+    updateSettings()
+    fetchFile("./resources/settings.json")
+    .then(settings => {
+        settings.splice(e-1, 1)
+        try{
+            fs.writeFileSync("./resources/settings.json", JSON.stringify(settings))
+        }
+        catch (err){
+            alert(err)
+        }
+    })
+    loadSettings()
+    window.location.reload()
+}
+
 function loadSettings(){
     html = ""
     fetchFile("./resources/settings.json")

@@ -107,7 +107,7 @@ function toggle(e){
 function addTask() {
     updateTasks()
     today = new Date()
-    today = (today.getFullYear()).toString() + "-" + (today.getMonth()+1).toString() + "-0" + (today.getDate()).toString()
+    today = (today.getFullYear()).toString() + "-" + (today.getMonth()+1).toString() + "-" + (today.getDate()).toString()
     fetchFile("resources/tasks.json")
     .then(data => {
         var newTask = {"name": "Untitled Task",
@@ -265,15 +265,6 @@ function removeTasks(){
     })
 }
 
-function calcWeek(){
-    var today = new Date()
-    var day = today.getDay()
-    var sunday = today-day
-    for (i=0; i<7; i++){
-        document.getElementById(`day${i+1}`).innerText = `${(sunday.getDate()).toString()}/${(sunday.getMonth()+1).toString()}/${(sunday.getFullYear()).toString()}`
-        sunday = sunday+1
-    }
-}
 function loadSettings(){
     html = ""
     fetchFile("./resources/settings.json")

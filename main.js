@@ -14,6 +14,9 @@ const createWindow = () =>{
             allowRendererProcessReuse: false,            
         }
     })
+    win.webContents.on("did-fail-load", function() {
+        win.loadFile("notes.html")
+    })
     ipcMain.handle("ping", () => "pong")
     win.loadFile("index.html")
 }

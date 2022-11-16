@@ -1,6 +1,3 @@
-const { kMaxLength } = require("buffer")
-const { windowsStore } = require("process")
-
 var fs
 try {
     fs = require("fs")
@@ -34,74 +31,76 @@ function calcTasks(){
     fetchFile("./resources/tasks.json")
     .then(file => {//currently returning incorrect dates, check over
         for (i=0; i<file.length; i++){
-            if ((new Date(file[i].startdate)).getTime() < week[0].getTime()){
-                var startDate = "0"
-            }
-            else {
-                if((new Date(file[i].startdate)).getTime() > week[6].getTime()){
-                    startDate = null
+            if (file[i].view){
+                if ((new Date(file[i].startdate)).getTime() < week[0].getTime()){
+                    var startDate = "0"
                 }
-                else{
-                    var startDate = new Date(file[i].startdate)
-                }
-                
-            }
-            if ((new Date(file[i].enddate)).getTime() > week[6].getTime()){
-                var endDate = "7"
-            }
-            else {
-                if((new Date(file[i].enddate)).getTime() < week[0].getTime()){
-                    endDate = null
-                }
-                else{
-                    var endDate = new Date(file[i].enddate)
-                }
-            }
-            if ((startDate == null) || (endDate == null)){
-                var millilength = 0
-            }
-            else{
-                if (endDate == "7"){
-                    if (startDate == "0"){
-                        var millilength = 6
+                else {
+                    if((new Date(file[i].startdate)).getTime() > week[6].getTime()){
+                        startDate = null
                     }
                     else{
-                        var millilength = (week[6].getTime() - startDate.getTime())/(1000*3600*24)
+                        var startDate = new Date(file[i].startdate)
                     }
+                    
                 }
-                else{
-                    if (startDate == "0"){
-                        var millilength = (endDate.getTime() - week[0].getTime())/(1000*3600*24)
+                if ((new Date(file[i].enddate)).getTime() > week[6].getTime()){
+                    var endDate = "7"
+                }
+                else {
+                    if((new Date(file[i].enddate)).getTime() < week[0].getTime()){
+                        endDate = null
                     }
                     else{
-                        var millilength = (endDate.getTime() - startDate.getTime())/(1000*3600*24)
+                        var endDate = new Date(file[i].enddate)
                     }
                 }
-            }
-            var length = Math.round(millilength)
-            var currSub = file[i].subject
-            try {
-                var settings = fs.readFileSync("./resources/settings.json")
-            }
-            catch (err) {
-            }
-            settings = JSON.parse(settings)
-            var colour = null
-            for (j=0; j<settings.length; j++){
-                if (settings[j].subject == currSub){
-                    var colour = settings[j].colour
+                if ((startDate == null) || (endDate == null)){
+                    var millilength = 0
                 }
-                if (colour == null){
-                    colour = "#ffffff"
+                else{
+                    if (endDate == "7"){
+                        if (startDate == "0"){
+                            var millilength = 6
+                        }
+                        else{
+                            var millilength = (week[6].getTime() - startDate.getTime())/(1000*3600*24)
+                        }
+                    }
+                    else{
+                        if (startDate == "0"){
+                            var millilength = (endDate.getTime() - week[0].getTime())/(1000*3600*24)
+                        }
+                        else{
+                            var millilength = (endDate.getTime() - startDate.getTime())/(1000*3600*24)
+                        }
+                    }
                 }
+                var length = Math.round(millilength)
+                var currSub = file[i].subject
+                try {
+                    var settings = fs.readFileSync("./resources/settings.json")
+                }
+                catch (err) {
+                }
+                settings = JSON.parse(settings)
+                var colour = null
+                for (j=0; j<settings.length; j++){
+                    if (settings[j].subject == currSub){
+                        var colour = settings[j].colour
+                    }
+                    if (colour == null){
+                        colour = "#ffffff"
+                    }
+                }
+                array = {
+                    "startdate":startDate,
+                    "enddate":endDate,
+                    "length":length,
+                    "colour":colour
+                }
+                timeline[file[i].name] = array
             }
-            array = {
-                "startdate":startDate,
-                "enddate":endDate,
-                "length":length,
-                "colour":colour
-            }
-            timeline[file[i].name] = array
         }
         try {
             fs.writeFileSync("./resources/timeline.json", JSON.stringify(timeline))
@@ -152,6 +151,10 @@ function renderTimeline(){
                     else{
                         var length = timeline[i].length * 14.2           
                     }
+                    if (timeline[i].startdate == timeline[i].enddate){
+                        length = 3
+                        leftMargin = leftMargin-1.5
+                    }
                     leftMargin = leftMargin.toString() + "%"
                     length = length.toString() + "%"
                 }
@@ -171,7 +174,7 @@ function renderTimeline(){
 }
 function reload(){
     window.location.reload()
-
 }
+
 calcTasks()
 renderTimeline()

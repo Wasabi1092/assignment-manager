@@ -155,6 +155,39 @@ textarea{
     align-items: center;
     left: 3%;
 }
+#days{
+    top: 93%;
+    height: 7%;
+    width: 95%;
+    position: absolute;
+    align-self: baseline;
+    align-items: center;
+    left: 3%;
+}
+#days div{
+    display: inline-block;
+}
+#sun{
+    margin-left: 5.8%;
+}
+#mon{
+    margin-left: 11.5%;
+}
+#tue{
+    margin-left: 11.5%;
+}
+#wed{
+    margin-left: 11.5%;
+}
+#thu{
+    margin-left: 11.5%;
+}
+#fri{
+    margin-left: 12.1%;
+}
+#sat{
+    margin-left: 12.2%;
+}
 .line{
     width: 99%;
     border: 2px solid #ffffff;
